@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template, redirect
+import cgi
 import re
 
 app=Flask(__name__)
@@ -11,13 +12,13 @@ def validate(form_input):
     form_value = form_input
     error = ''
     if not form_input:
-        error = "Why you no enter {name} !?"
+        error = "Please enter the correct {name} !?"
 
     elif len(form_value) < 3 or len(form_value) > 20:  # check for length
         error = "I need something between (3-20) characters"
 
     elif " " in form_value:  # check for spaces
-        error = "Me no likey {name} with spaces"
+        error = "Enter {name} without spaces"
     return error
     
    
@@ -28,9 +29,9 @@ def validate(form_input):
 def make_home():
     if request.method == 'POST':
         # variables to contain form inputs
-        user_name = request.form['user_name']
+        user_name = request.form['username']
         password = request.form['password']
-        verify_password = request.form['verify_password']
+        password_validate = request.form['password_validate']
         email = request.form['email']
         # #variables to contain error messages
         user_name_error=""
@@ -41,16 +42,18 @@ def make_home():
         # #checks for validation of username, password, and verify password
         user_name_error= validate(user_name).format(name="Username")
         password_error = validate(password).format(name="Password")
-        verify_pass_error = validate(verify_password).format(name="Verify Password")
+        verify_pass_error = validate(password_validate).format(name="Verify Password")
         
         # #compare password to verify password
-        if verify_password not in password:
-            compare_pass_error="NONE SHALL PASS!...Without matching passwords"
+        
+        if password != password_validate:
+            password_error="Passwords do not match!!"
+            
         #check for email input
         if email:
             #check for @ and . symbols
             if not re.search(r"([a-z]+[@]+[a-z]+[.]+[a-z])", email):
-                email_error="Can I get an actual email address?"
+                email_error="Please enter a real email address!"
             else:
                 email_error = validate(email).format(
                     name="Email")  # complete email validation

@@ -1,7 +1,7 @@
 body {
     font-size: 110%;
     font-family: 'Work Sans', sans-serif;
-    background-color:lightgrey;
+    background-color :white;
     padding-top: 2rem;
 }
 
@@ -58,19 +58,15 @@ input {
     line-height: 1rem;
 }
 
-.error:last-of-type {
-    margin-bottom: 1.5rem;
-}
 
-/* submit button */
 
 .submit { 
-    width: auto;
-    padding: 0.7rem 1rem; 
-    background-color: teal;
-    border: 0;
-    color: #FFFFFF; 
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 0.1rem;
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
